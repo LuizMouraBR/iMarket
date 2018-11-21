@@ -15,6 +15,7 @@ namespace iMarket.Models
         public string Email { get; set; }
         public string Senha { get; set; }
         public double Saldo { get; set; }
+        public int NivelAcesso { get; set; }
 
         public ICollection<CarrinhoDeCompra> CarrinhoDeCompra { get; set; }
     }

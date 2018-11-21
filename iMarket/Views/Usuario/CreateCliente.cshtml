@@ -1,0 +1,53 @@
+﻿@model iMarket.Models.Usuario
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-action="CreateCliente">
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nome)
+                @Html.EditorFor(model => model.Nome)
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email)
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Senha)
+                @Html.PasswordFor(model => model.Senha)
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            </div>
+
+            <label for="verSenha">Ver senha:</label>
+            <input type="checkbox" name="verSenha" onchange="verSenhaSwitch()" />
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+            </form>
+</div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        // TODO Implementar "VerSenha"
+    
+    </script>
+}

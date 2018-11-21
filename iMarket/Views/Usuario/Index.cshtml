@@ -1,0 +1,65 @@
+﻿@model IEnumerable<iMarket.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <div class="btn btn-success">
+        <span class="glyphicon glyphicon-user"></span>
+        <a style="color:white;" asp-action="CreateCliente">Adicionar cliente</a>
+    </div>
+    <div class="btn btn-success">
+        <span class="glyphicon glyphicon-lock"></span>
+        <a style="color:white;" asp-action="CreateCliente">Adicionar fornecedor</a>
+    </div>
+    <div class="btn btn-success">
+        <span class="glyphicon glyphicon-king"></span>
+        <a style="color:white;" asp-action="CreateAdmin">Adicionar administrador</a>
+    </div>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Saldo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelAcesso)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Saldo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelAcesso)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
