@@ -11,10 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Usuario\CreateAdmin.cshtml">
+    <Content Update="Views\Usuario2\CreateAdmin.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Usuario\CreateCliente - Cópia.cshtml">
+    <Content Update="Views\Usuario2\CreateFornecedor.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

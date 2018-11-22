@@ -53,6 +53,11 @@ namespace iMarket.Controllers
             return View();
         }
 
+        public IActionResult CreateFornecedor()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateCliente([Bind("Id,Nome,Email,Senha,Saldo,NivelAcesso")] Usuario usuario)
@@ -60,6 +65,20 @@ namespace iMarket.Controllers
             if (ModelState.IsValid)
             {
                 usuario.NivelAcesso = 3;
+                _context.Add(usuario);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(usuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateFornecedor([Bind("Id,Nome,Email,Senha,Saldo,NivelAcesso,FornecedorId")] Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                usuario.NivelAcesso = 2;
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
