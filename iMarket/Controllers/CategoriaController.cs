@@ -9,23 +9,22 @@ using iMarket.Models;
 
 namespace iMarket.Controllers
 {
-    public class ProdutoController : Controller
+    public class CategoriaController : Controller
     {
         private readonly iMarketDatabaseContext _context;
 
-        public ProdutoController(iMarketDatabaseContext context)
+        public CategoriaController(iMarketDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: Produtoes
+        // GET: Categoria
         public async Task<IActionResult> Index()
         {
-            var iMarketDatabaseContext = _context.Produto.Include(p => p.Categoria).Include(p => p.Fornecedor);
-            return View(await iMarketDatabaseContext.ToListAsync());
+            return View(await _context.Categoria.ToListAsync());
         }
 
-        // GET: Produtoes/Details/5
+        // GET: Categoria/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,45 +32,42 @@ namespace iMarket.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produto
-                .Include(p => p.Categoria)
-                .Include(p => p.Fornecedor)
+            var categoria = await _context.Categoria
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (produto == null)
+            if (categoria == null)
             {
                 return NotFound();
             }
 
-            return View(produto);
+            return View(categoria);
         }
 
-        // GET: Produtoes/Create
+        // GET: Categoria/Create
         public IActionResult Create()
         {
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Nome");
-            ViewData["FornecedorId"] = new SelectList(_context.Fornecedor, "Id", "NomeFantasia");
             return View();
         }
 
-        // POST: Produtoes/Create
+        // POST: Categoria/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Marca,Preco,Imagem,Desconto,CategoriaId,FornecedorId")] Produto produto)
+        public async Task<IActionResult> Create([Bind("Id,Nome")] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(produto);
+                var idAnterior = _context.Categoria.FirstOrDefault(m => m.Id == _context.Categoria.Max(x => x.Id));
+
+                categoria.Id = idAnterior.Id + 1;
+                _context.Add(categoria);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Nome", produto.CategoriaId);
-            ViewData["FornecedorId"] = new SelectList(_context.Fornecedor, "Id", "NomeFantasia", produto.FornecedorId);
-            return View(produto);
+            return View(categoria);
         }
 
-        // GET: Produtoes/Edit/5
+        // GET: Categoria/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,24 +75,22 @@ namespace iMarket.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produto.FindAsync(id);
-            if (produto == null)
+            var categoria = await _context.Categoria.FindAsync(id);
+            if (categoria == null)
             {
                 return NotFound();
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Nome", produto.CategoriaId);
-            ViewData["FornecedorId"] = new SelectList(_context.Fornecedor, "Id", "NomeFantasia", produto.FornecedorId);
-            return View(produto);
+            return View(categoria);
         }
 
-        // POST: Produtoes/Edit/5
+        // POST: Categoria/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Marca,Preco,Imagem,Desconto,CategoriaId,FornecedorId")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Categoria categoria)
         {
-            if (id != produto.Id)
+            if (id != categoria.Id)
             {
                 return NotFound();
             }
@@ -105,12 +99,12 @@ namespace iMarket.Controllers
             {
                 try
                 {
-                    _context.Update(produto);
+                    _context.Update(categoria);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProdutoExists(produto.Id))
+                    if (!CategoriaExists(categoria.Id))
                     {
                         return NotFound();
                     }
@@ -121,12 +115,10 @@ namespace iMarket.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Nome", produto.CategoriaId);
-            ViewData["FornecedorId"] = new SelectList(_context.Fornecedor, "Id", "NomeFantasia", produto.FornecedorId);
-            return View(produto);
+            return View(categoria);
         }
 
-        // GET: Produtoes/Delete/5
+        // GET: Categoria/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,32 +126,30 @@ namespace iMarket.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produto
-                .Include(p => p.Categoria)
-                .Include(p => p.Fornecedor)
+            var categoria = await _context.Categoria
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (produto == null)
+            if (categoria == null)
             {
                 return NotFound();
             }
 
-            return View(produto);
+            return View(categoria);
         }
 
-        // POST: Produtoes/Delete/5
+        // POST: Categoria/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var produto = await _context.Produto.FindAsync(id);
-            _context.Produto.Remove(produto);
+            var categoria = await _context.Categoria.FindAsync(id);
+            _context.Categoria.Remove(categoria);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProdutoExists(int id)
+        private bool CategoriaExists(int id)
         {
-            return _context.Produto.Any(e => e.Id == id);
+            return _context.Categoria.Any(e => e.Id == id);
         }
     }
 }

@@ -55,6 +55,7 @@ namespace iMarket.Controllers
 
         public IActionResult CreateFornecedor()
         {
+            ViewData["FornecedorId"] = new SelectList(_context.Fornecedor, "Id", "NomeFantasia");
             return View();
         }
 
