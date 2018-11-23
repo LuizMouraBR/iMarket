@@ -18,10 +18,28 @@ namespace iMarket.Controllers
             _context = context;
         }
 
-        // GET: Produtoes
-        public async Task<IActionResult> Index()
+        // GET: Produtos
+        public async Task<IActionResult> Index(int Categoria, int Fornecedor)
         {
-            var iMarketDatabaseContext = _context.Produto.Include(p => p.Categoria).Include(p => p.Fornecedor);
+            IQueryable<Produto> iMarketDatabaseContext = null;
+
+            if (Categoria != 0)
+            {
+                iMarketDatabaseContext = _context.Produto.Where(p => p.Categoria.Id == Categoria);
+            }
+            if(Fornecedor != 0)
+            {
+                iMarketDatabaseContext = _context.Produto.Where(p => p.Fornecedor.Id == Fornecedor);
+            }
+            if(Fornecedor != 0 && Categoria != 0)
+            {
+                iMarketDatabaseContext = _context.Produto.Where(p => p.Fornecedor.Id == Fornecedor).Where(p => p.Categoria.Id == Categoria);
+            }
+            if (Fornecedor == 0 && Categoria == 0)
+            {
+                iMarketDatabaseContext = _context.Produto.Include(p => p.Categoria).Include(p => p.Fornecedor);
+            }
+
             return View(await iMarketDatabaseContext.ToListAsync());
         }
 

@@ -1,47 +1,102 @@
 ﻿@model IEnumerable<iMarket.Models.Produto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Produtos em estoque";
 }
 
 <style>
     .produtoCard {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        background-color: white;
+        background-color: lightgray;
         transition-duration: 0.2s;
         margin: auto;
+        max-height: 300px;
+        height: 260px;
     }
         .produtoCard:hover {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            border-radius: 10px;
-            background-color: #808080;
+            background-color: white;
             transition-duration: 0.2s;
             margin: auto;
+            max-height: 300px;
+            height: 260px;
         }
 
 </style>
 
-<h2>Index</h2>
+<h2>Produtos em estoque</h2>
 
+<!--Recurso de Fornecedor-->
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Criar novo</a>
 </p>
+
+<form method="get">
+
+    <select name="Categoria" class="form-control col-md-3">
+        <option value="0">Selecione uma categoria</option>
+        @{
+            iMarketDatabaseContext db = new iMarketDatabaseContext();
+            List<Categoria> categorias = db.Categoria.ToList();
+
+            foreach (var item in categorias)
+            {
+
+                <option value="@item.Id">@item.Nome</option> <!--ITS JUST A TEST, BRO-->
+
+            }
+        }
+    </select>
+
+    <select name="Fornecedor" class="form-control col-md-3">
+        <option value="0">Selecione um fornecedor</option>
+        @{
+            iMarketDatabaseContext db1 = new iMarketDatabaseContext();
+            List<Fornecedor> fornecedores = db1.Fornecedor.ToList();
+
+            foreach (var item in fornecedores)
+            {
+
+                <option value="@item.Id">@item.NomeFantasia</option>
+
+            }
+        }
+    </select>
+
+    <input type="submit" value="Filtrar" />
+
+</form>
+
+<h3>
+    Produtos....
+
+</h3>
+
+
         <div class="container">
 
 @foreach (var item in Model) {
 
-            <div class="col-md-3 produtoCard">
+            <div style="margin: 5px; width:150px; float:left;" class="produtoCard">
 
-            <img src="@Html.DisplayFor(modelItem => item.Imagem)" style="width: 100%;padding:5px 5px;" alt="Imagem de @Html.DisplayFor(modelItem => item.Nome)" />
-                    
-            <h2>@Html.DisplayFor(modelItem => item.Nome)</h2>
-            @Html.DisplayFor(modelItem => item.Marca)
-            @Html.DisplayFor(modelItem => item.Preco)
-            @Html.DisplayFor(modelItem => item.Desconto)
+                <img src="@Html.DisplayFor(modelItem => item.Imagem)" style="width: 150px; height: 150px; margin-bottom: -5%;padding:5px 5px;" alt="Imagem de @Html.DisplayFor(modelItem => item.Nome)" />
 
-            @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                <div style="padding: 0px 5px;">
+                    <h4><a style="color: black;" href="#">@Html.DisplayFor(modelItem => item.Nome)</a></h4>
+                    <b>@Html.DisplayFor(modelItem => item.Marca)</b>
+                    <p>
+                        <span style="color:forestgreen;">-@Html.DisplayFor(modelItem => item.Desconto)%</span>
+                        <big style="color: blue;">R$ @Html.DisplayFor(modelItem => item.Preco)</big>
+                    </p>
+
+                    <!--Recursos de Admin e Fornecedor-->
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Editar</a> -
+                    <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+
+                </div>
+
+               
             </div>
+
             }
     </div>
