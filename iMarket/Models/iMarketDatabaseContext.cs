@@ -148,6 +148,12 @@ namespace iMarket.Models
                     .HasColumnName("senha")
                     .HasMaxLength(16)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Fornecedor)
+                    .WithMany(p => p.Usuario)
+                    .HasForeignKey(d => d.FornecedorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fornecedor_id");
             });
         }
     }

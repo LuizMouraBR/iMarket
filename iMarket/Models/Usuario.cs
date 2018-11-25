@@ -18,6 +18,7 @@ namespace iMarket.Models
         public int NivelAcesso { get; set; }
         public int FornecedorId { get; set; }
 
+        public Fornecedor Fornecedor { get; set; }
         public ICollection<CarrinhoDeCompra> CarrinhoDeCompra { get; set; }
     }
 }

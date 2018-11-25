@@ -6,20 +6,22 @@
 
 <h2>Index</h2>
 
-<p>
-    <div class="btn btn-success">
+<form>
+
+    <button class="btn btn-success" asp-action="CreateCliente">
         <span class="glyphicon glyphicon-user"></span>
-        <a style="color:white;" asp-action="CreateCliente">Adicionar cliente</a>
-    </div>
-    <div class="btn btn-success">
+        Adicionar cliente
+    </button>
+    <button class="btn btn-success" asp-action="CreateFornecedor">
         <span class="glyphicon glyphicon-lock"></span>
-        <a style="color:white;" asp-action="CreateFornecedor">Adicionar fornecedor</a>
-    </div>
-    <div class="btn btn-success">
+        Adicionar fornecedor
+    </button>
+    <button class="btn btn-success" asp-action="CreateAdmin">
         <span class="glyphicon glyphicon-king"></span>
-        <a style="color:white;" asp-action="CreateAdmin">Adicionar administrador</a>
-    </div>
-</p>
+        Adicionar administrador
+    </button>
+</form>
+
 <table class="table">
     <thead>
         <tr>

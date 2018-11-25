@@ -1,12 +1,11 @@
 ﻿@model iMarket.Models.Usuario
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Cadastrar fornecedor";
 }
 
-<h2>Create</h2>
+<h2>Cadastro de conta de usuário de fornecedor</h2>
 
-<h4>Usuario</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,25 +13,25 @@
         <form asp-action="CreateFornecedor">
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Nome)
-                @Html.EditorFor(model => model.Nome)
-                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Email)
-                @Html.EditorFor(model => model.Email)
-                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Senha)
-                @Html.PasswordFor(model => model.Senha)
-                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <label asp-for="Senha" class="control-label"></label>
+                <input asp-for="Senha" class="form-control" />
+                <span asp-validation-for="Senha" class="text-danger"></span>
             </div>
 
-            @*<div class="form-group">
+            <div class="form-group">
                 <label asp-for="FornecedorId" class="control-label"></label>
                 <select asp-for="FornecedorId" class="form-control" asp-items="ViewBag.FornecedorId"></select>
-            </div>*@
+            </div>
 
             <label for="verSenha">Ver senha:</label>
             <input type="checkbox" name="verSenha" onchange="verSenhaSwitch()" />
@@ -44,10 +43,8 @@
 </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+<button class="btn btn-success" asp-action="Index">Retornar a lista</button>
+s
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 

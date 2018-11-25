@@ -21,7 +21,10 @@ namespace iMarket.Controllers
         // GET: Usuario
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Usuario.ToListAsync());
+            List<Usuario> users = new List<Usuario>();
+            users = await _context.Usuario.ToListAsync();
+
+            return View(users);
         }
 
         // GET: Usuario/Details/5
@@ -65,6 +68,7 @@ namespace iMarket.Controllers
         {
             if (ModelState.IsValid)
             {
+                usuario.FornecedorId = 1003; // 1003 é um fornecedor nulo.
                 usuario.NivelAcesso = 3;
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
@@ -93,6 +97,7 @@ namespace iMarket.Controllers
         {
             if (ModelState.IsValid)
             {
+                usuario.FornecedorId = 1003; // 1003 é um fornecedor nulo.
                 usuario.NivelAcesso = 1;
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
@@ -122,7 +127,7 @@ namespace iMarket.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email,Senha,Saldo")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email,Senha,Saldo,FornecedorId")] Usuario usuario)
         {
             if (id != usuario.Id)
             {

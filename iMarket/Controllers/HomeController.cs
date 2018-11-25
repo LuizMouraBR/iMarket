@@ -10,6 +10,13 @@ namespace iMarket.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly iMarketDatabaseContext _context;
+
+        public HomeController(iMarketDatabaseContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -22,14 +29,7 @@ namespace iMarket.Controllers
             return View();
         }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
+        public IActionResult Login()
         {
             return View();
         }
@@ -39,5 +39,6 @@ namespace iMarket.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

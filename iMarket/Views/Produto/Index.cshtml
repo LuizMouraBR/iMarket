@@ -33,37 +33,41 @@
 
 <form method="get">
 
-    <select name="Categoria" class="form-control col-md-3">
-        <option value="0">Selecione uma categoria</option>
-        @{
-            iMarketDatabaseContext db = new iMarketDatabaseContext();
-            List<Categoria> categorias = db.Categoria.ToList();
+    <div class="col-md-3">
+        <select name="Categoria" class="form-control">
+            <option value="0">Selecione uma categoria</option>
+            @{
+                iMarketDatabaseContext db = new iMarketDatabaseContext();
+                List<Categoria> categorias = db.Categoria.ToList();
 
-            foreach (var item in categorias)
-            {
+                foreach (var item in categorias)
+                {
 
-                <option value="@item.Id">@item.Nome</option> <!--ITS JUST A TEST, BRO-->
+                    <option value="@item.Id">@item.Nome</option> <!--ITS JUST A TEST, BRO-->
 
+                }
             }
-        }
-    </select>
+        </select>
+    </div>
 
-    <select name="Fornecedor" class="form-control col-md-3">
-        <option value="0">Selecione um fornecedor</option>
-        @{
-            iMarketDatabaseContext db1 = new iMarketDatabaseContext();
-            List<Fornecedor> fornecedores = db1.Fornecedor.ToList();
+    <div class="col-md-3">
+        <select name="Fornecedor" class="form-control col-md-3">
+            <option value="0">Selecione um fornecedor</option>
+            @{
+                iMarketDatabaseContext db1 = new iMarketDatabaseContext();
+                List<Fornecedor> fornecedores = db1.Fornecedor.ToList();
 
-            foreach (var item in fornecedores)
-            {
+                foreach (var item in fornecedores)
+                {
 
-                <option value="@item.Id">@item.NomeFantasia</option>
+                    <option value="@item.Id">@item.NomeFantasia</option>
 
+                }
             }
-        }
-    </select>
+        </select>
 
-    <input type="submit" value="Filtrar" />
+    </div>
+    <input type="submit" class="btn btn-default"value="Filtrar" />
 
 </form>
 
@@ -79,23 +83,27 @@
 
             <div style="margin: 5px; width:150px; float:left;" class="produtoCard">
 
-                <img src="@Html.DisplayFor(modelItem => item.Imagem)" style="width: 150px; height: 150px; margin-bottom: -5%;padding:5px 5px;" alt="Imagem de @Html.DisplayFor(modelItem => item.Nome)" />
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    <img src="@Html.DisplayFor(modelItem => item.Imagem)"
+                         style="width: 150px; height: 150px; margin-bottom: -5%; padding:5px 5px;"
+                         alt="Imagem de @Html.DisplayFor(modelItem => item.Nome)" />
+                </a>
 
                 <div style="padding: 0px 5px;">
-                    <h4><a style="color: black;" href="#">@Html.DisplayFor(modelItem => item.Nome)</a></h4>
+                    <h4><a style="color: black;" asp-action="Details" asp-route-id="@item.Id" >@Html.DisplayFor(modelItem => item.Nome)</a></h4>
                     <b>@Html.DisplayFor(modelItem => item.Marca)</b>
                     <p>
-                        <span style="color:forestgreen;">-@Html.DisplayFor(modelItem => item.Desconto)%</span>
-                        <big style="color: blue;">R$ @Html.DisplayFor(modelItem => item.Preco)</big>
+                        <span style="color:forestgreen; float:left;">Desconto: @Html.DisplayFor(modelItem => item.Desconto)%</span><br>
+                        <b style="color: blue; float:left; font-size: 18px;">Preço: R$ @Html.DisplayFor(modelItem => item.Preco)</b>
                     </p>
 
                     <!--Recursos de Admin e Fornecedor-->
                     @*<a asp-action="Edit" asp-route-id="@item.Id">Editar</a> -
-                    <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+                        <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
 
                 </div>
 
-               
+
             </div>
 
             }

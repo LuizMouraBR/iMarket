@@ -17,6 +17,7 @@ namespace iMarket.Models
         public string Endereco { get; set; }
         public double Reputacao { get; set; }
 
+        public ICollection<Usuario> Usuario { get; set; }
         public ICollection<Produto> Produto { get; set; }
     }
 }
