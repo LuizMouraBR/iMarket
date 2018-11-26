@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using iMarket.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace iMarket.Controllers
 {
@@ -32,6 +33,25 @@ namespace iMarket.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+
+        public async Task<IActionResult> LoginConfirm(string Email, string Senha)
+        {
+
+            var emailToConfirm = Email;
+            var passwordToConfirm = Senha;
+
+            IQueryable<Usuario> user = _context.Usuario.Where(u => u.Email == emailToConfirm).Where(u => u.Senha == passwordToConfirm);
+            Usuario usuario = user.FirstOrDefault();
+
+            if (usuario != null)
+            {
+                ISession["userId"] = usuario.Id;
+            }
+                return View("About");
+
+
+            return View("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

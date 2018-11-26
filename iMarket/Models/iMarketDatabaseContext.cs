@@ -151,7 +151,7 @@ namespace iMarket.Models
 
                 entity.HasOne(d => d.Fornecedor)
                     .WithMany(p => p.Usuario)
-                    .HasForeignKey(d => d.FornecedorId)
+                    .HasForeignKey(d => d.fornecedor_id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fornecedor_id");
             });

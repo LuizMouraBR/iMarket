@@ -16,7 +16,7 @@ namespace iMarket.Models
         public string Senha { get; set; }
         public double Saldo { get; set; }
         public int NivelAcesso { get; set; }
-        public int FornecedorId { get; set; }
+        public int fornecedor_id { get; set; }
 
         public Fornecedor Fornecedor { get; set; }
         public ICollection<CarrinhoDeCompra> CarrinhoDeCompra { get; set; }

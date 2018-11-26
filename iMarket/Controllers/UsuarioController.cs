@@ -68,7 +68,7 @@ namespace iMarket.Controllers
         {
             if (ModelState.IsValid)
             {
-                usuario.FornecedorId = 1003; // 1003 é um fornecedor nulo.
+                usuario.fornecedor_id = 1003; // 1003 é um fornecedor nulo.
                 usuario.NivelAcesso = 3;
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
@@ -97,7 +97,7 @@ namespace iMarket.Controllers
         {
             if (ModelState.IsValid)
             {
-                usuario.FornecedorId = 1003; // 1003 é um fornecedor nulo.
+                usuario.fornecedor_id = 1003; // 1003 é um fornecedor nulo.
                 usuario.NivelAcesso = 1;
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
